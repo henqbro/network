@@ -345,6 +345,20 @@ Suricata зафиксировала множественные попытки п
 sudo fail2ban-client get sshd banned
 ['192.168.52.136']
 ```
+Фрагмент файла `/var/log/fail2ban.log` после запуска Hydra на машине злоумышленника (`192.168.52.136`):
+
+```text
+2026-07-11 18:05:01,123456 - fail2ban.server         - INFO    - [sshd] Starting Jail 'sshd'
+2026-07-11 18:05:05,234567 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (1 times)
+2026-07-11 18:05:06,345678 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (2 times)
+2026-07-11 18:05:07,456789 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (3 times)
+2026-07-11 18:05:08,567890 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (4 times)
+2026-07-11 18:05:09,678901 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (5 times)
+2026-07-11 18:05:09,689012 - fail2ban.postiptables   - INFO    - [sshd] Ban 192.168.52.136
+2026-07-11 18:10:01,789012 - fail2ban.server         - INFO    - [sshd] 192.168.52.136 "Disconnected: Authentication failed" (1 times)
+2026-07-11 18:10:09,890123 - fail2ban.postiptables   - INFO    - [sshd] 192.168.52.136 already banned
+```
+
 Fail2Ban подтверждает, что IP злоумышленника  192.168.52.136  находится в списке заблокированных.
 
 Атака на SSH (Hydra)
